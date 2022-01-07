@@ -9,7 +9,7 @@ export default function Routes() {
     <ReactRouterRoutes>
         <Route path="/" element={<Landing />} />
         <Route path="/add-players" element={<AddPlayers />} />
-        <Route path="/all-you-can-eat" element={<AllYouCanEat foodName="Pizza" />} />
+        <Route path="/all-you-can-eat" element={<AllYouCanEat />} />
     </ReactRouterRoutes>
   )
 } 

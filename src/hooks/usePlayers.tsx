@@ -6,7 +6,8 @@ interface Player {
 
 interface PlayersContextData {
   players: Player[];
-  setPlayers: (players: Player[]) => void;
+  deletePlayer: (player: Player) => void;
+  addPlayer: (player: Player) => void;
 }
 
 interface PlayersProviderProps {
@@ -19,8 +20,18 @@ const PlayersContext = createContext<PlayersContextData>(
 
 export function PlayersProvider({ children }: PlayersProviderProps ) {
   const [players, setPlayers] = useState<Player[]>([]);
+
+  function addPlayer(newPlayer: Player) {
+    const newPlayers = [...players, newPlayer];
+    setPlayers(newPlayers);
+  }
+
+  function deletePlayer(player: Player) {
+    const newPlayers = players.filter(p => p.name !== player.name);
+    setPlayers(newPlayers);
+  }
   return (
-    <PlayersContext.Provider value={{players, setPlayers}}>
+    <PlayersContext.Provider value={{players, deletePlayer, addPlayer}}>
       { children }
     </PlayersContext.Provider>
   )
