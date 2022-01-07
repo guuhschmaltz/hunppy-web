@@ -11,6 +11,7 @@ import './styles.css';
 
 type Player = {
   name: string;
+  points?: number;
 }
 
 
@@ -25,7 +26,8 @@ export default function AddPlayers() {
     if (playerInputRef.current !== null) {
 
       const player = {
-        name: playerInputRef.current.value
+        name: playerInputRef.current.value,
+        points: 0
       };
 
       //verificar se o input tá vazio

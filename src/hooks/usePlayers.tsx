@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode, useContext } from 'react';
 
 interface Player {
   name: string;
+  points?: number;
 }
 
 interface PlayersContextData {
