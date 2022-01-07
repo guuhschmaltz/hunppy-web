@@ -1,4 +1,4 @@
-#page-all-you-can-eat {
+#page-add-players {
   width: 100vw;
   height: 100vh;
 
@@ -17,10 +17,12 @@
   margin: 0 auto;
 }
 
-.button-container {
-  margin-top: 32px;
+.player {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
+.player icon {
+  cursor: pointer;
+}
