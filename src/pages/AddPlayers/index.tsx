@@ -11,7 +11,7 @@ import './styles.css';
 
 type Player = {
   name: string;
-  points?: number;
+  points: number;
 }
 
 
