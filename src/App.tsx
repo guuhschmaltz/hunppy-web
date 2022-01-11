@@ -1,7 +1,8 @@
 import React from 'react';
 import Routes from './routes';
 import './styles/reset.css';
-import './styles/global.css';
+
+import GlobalStyle from './styles/global';
 import AppProvider from './hooks';
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
     <div className="App">
       <AppProvider>
         <Routes />
+        
       </AppProvider>
+      <GlobalStyle />
     </div>
   );
 }

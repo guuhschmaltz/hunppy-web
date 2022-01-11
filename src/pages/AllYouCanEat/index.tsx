@@ -11,7 +11,6 @@ type Player = {
 
 export default function AllYouCanEat() {
   const [showWhatsAppButton, setShowWhatsAppButton] = useState(false);
-  const [apiLink, setApiLink] = useState<String | null>(null);
 
   const category = useCategory();
   const players = usePlayers();
@@ -26,22 +25,15 @@ export default function AllYouCanEat() {
 
   function handleSendWhatsAppMessage(players: Player[]){
     if(phoneNumberInputRef.current !== null){
-      const pointsString = players.map(player => `O jogador *${player.name}* fez *${player.points}* pontos`).join('\n')
+      const pointsString = players.map(player => `O jogador *${player.name}* fez *${player.points}* pontos,`).join('%0a')
 
       const championPlayer = players.reduce(function(prev, current){
           return(prev.points > current.points) ? prev: current
       })
       
-      const whatsAppMessageString = `
-        *🍕 Aplicativo Hunppy 🍔* \n você participou de um Rodízio de ${category.category?.name}. \n Placar de pontuações: \n ${pointsString} \n Onde o incrível campeão foi o *${championPlayer.name}* com incríveis *${championPlayer.points}*, 🏆 \n Obrigado por ter utilizado nosso aplicativo (; `;
-      
-      console.log(whatsAppMessageString);
-      const apiMessageLink = `https://api.whatsapp.com/send?phone=+551195108-2476&text=${whatsAppMessageString}`;
-      setApiLink(apiMessageLink);
-      console.log(apiLink)
-      if (apiLink !== null){
-        window.open(`${apiLink}`);
-      }
+      const whatsAppMessageString = `*🍕 Aplicativo Hunppy 🍔*%0a%0aVocê participou de um Rodízio de ${category.category?.name}. %0aPlacar de pontuações: %0a%0a${pointsString} %0a%0aOnde o incrível campeão foi o *${championPlayer.name}* com incríveis *${championPlayer.points}* pontos 🏆%0a%0aObrigado por ter utilizado nosso aplicativo (; `;
+
+      window.open(`https://api.whatsapp.com/send?phone=+55${phoneNumberInputRef.current.value}&text=${whatsAppMessageString}`); 
     }
   }
 
@@ -85,7 +77,7 @@ export default function AllYouCanEat() {
           </div>
           ) : (
           <div>
-            <label htmlFor="phone-number">Insira o número de celular</label>
+            <label htmlFor="phone-number">Insira um número de celular para receber a pontuação via WhatsApp!</label>
             <input name="phone-number" type="number" ref={phoneNumberInputRef}></input>
             <p onClick={() => handleSendWhatsAppMessage(players.players)}>Enviar Mensagem</p>
           </div>
