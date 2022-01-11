@@ -1,24 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { FaArrowRight } from 'react-icons/fa';
+import { FiArrowRightCircle } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo-com-nome.png';
-import './styles.css';
+import { Container, Content } from './styles';
 
 
 export default function Landing() {
   return (
-    <div id="page-landing">
-        <main className="content">
+    <Container>
+        <Content>
           <img src={logoImg} alt="Hunppy"></img>
-          <h1>Seu contador de rodízios</h1>
-          <p>Vamos ver quem come mais? só não vale passar mal.</p>
-          <div className="button-container">
-          <Link to="/add-players" className="enter-app">
-            <FaArrowRight size={32} color="rgba(255, 255, 255, 0.932)" />
+          <p>Vamos ver quem come mais?<br/> só não vale passar mal.</p>
+          <div>
+          <Link to="/add-players">
+            <FiArrowRightCircle size={48} />
           </Link>
           </div>
-        </main>
-    </div>
+        </Content>
+    </Container>
   );
 }

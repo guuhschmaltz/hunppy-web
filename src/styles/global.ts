@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import backgroundImg from '../assets/background-medium.png';
 
 export default createGlobalStyle`
   * {
@@ -9,13 +10,14 @@ export default createGlobalStyle`
   }
 
   body {
-    background: var(--color-beef) url(../assets/background-medium.png) 50%;
-    color: #FFF;
+    background: var(--color-beef) 50%;
+    background-image: url(${backgroundImg});
+    color: #2c2c2c;
     -webkit-font-smoothing: antialiased;
   }
 
   body, input, button {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Nunito', serif;
     font-size: 16px;
   }
 
@@ -33,7 +35,8 @@ export default createGlobalStyle`
     --color-cheese: #FFD63B;
     --color-beef: #6F150D;
     --color-ketchup: #FF321F;
-    --color-background: #568ba0;
+    --color-background: #e6ffff;
+    --color-background-img: #17BCEF;
     --color-icon: #2E3192;
     }
 `;
