@@ -1,8 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import { useCategory } from '../../hooks/useCategory';
 import { usePlayers } from '../../hooks/usePlayers';
 import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi';
-import '../AllYouCanEat/styles.css';
+import logoImg from '../../assets/logo-com-nome.png';
+
+import { AddPhoneNumber, Container , Content, EndGame, Table } from './styles';
+import { InputButtonContainer } from '../AddPlayers/styles';
 
 type Player = {
   name: string;
@@ -23,7 +26,7 @@ export default function AllYouCanEat() {
     players.deletePoint(player);
   }
 
-  function handleSendWhatsAppMessage(players: Player[]){
+  function handleSendWhatsAppMessage(e: FormEvent<HTMLFormElement>, players: Player[]){
     if(phoneNumberInputRef.current !== null){
       const pointsString = players.map(player => `O jogador *${player.name}* fez *${player.points}* pontos,`).join('%0a')
 
@@ -39,22 +42,19 @@ export default function AllYouCanEat() {
 
   const phoneNumberInputRef = useRef<HTMLInputElement>(null);
   return (
-    <div id="page-all-you-can-eat">
-      <main className="content">
-        <div className="game">
-        <table>
+    <Container>
+      <Content>
+        <img src={logoImg} alt="Hunppy"></img>
+        <Table>
           <thead>Ródizio de: {category.category?.name}</thead>
-            <tr>
-              <th>Nome</th>
-              <th>Número de pontos</th>
-            </tr>
           {players.players.map(player => {
             return (
+              <div>
               <tr key={player.name}>
                 <td>
                     <p>{player.name}</p>
                 </td>
-                <td className="player-points">
+                <td>
                   <FiPlusCircle size={32} style={{
                      marginLeft: 5,
                      marginRight: 10,
@@ -68,23 +68,25 @@ export default function AllYouCanEat() {
                      onClick={() => handleDeletePoint(player)} />
                 </td>
               </tr>
+              </div>
             )
           })}
-        </table>
+        </Table>
         { showWhatsAppButton === false ? (
-          <div className="end-game">
+          <EndGame>
           <p onClick={() => setShowWhatsAppButton(true)}>Finalizar Jogo</p>
-          </div>
+          </EndGame>
           ) : (
-          <div>
-            <label htmlFor="phone-number">Insira um número de celular para receber a pontuação via WhatsApp!</label>
-            <input name="phone-number" type="number" ref={phoneNumberInputRef}></input>
-            <p onClick={() => handleSendWhatsAppMessage(players.players)}>Enviar Mensagem</p>
-          </div>
+          <AddPhoneNumber onSubmit={(e) => handleSendWhatsAppMessage(e, players.players)}>
+            <p>Adicione um celular</p>
+            <InputButtonContainer>
+            <input name="phone-number" placeholder="11999999999" type="number" ref={phoneNumberInputRef} />
+            <button>Enviar</button>
+            </InputButtonContainer>
+          </AddPhoneNumber>
         )
         }
-        </div>
-      </main>
-    </div>
+      </Content>
+    </Container>
   );
 }
