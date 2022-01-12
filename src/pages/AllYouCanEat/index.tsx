@@ -27,6 +27,7 @@ export default function AllYouCanEat() {
   }
 
   function handleSendWhatsAppMessage(e: FormEvent<HTMLFormElement>, players: Player[]){
+    e.preventDefault();
     if(phoneNumberInputRef.current !== null){
       const pointsString = players.map(player => `O jogador *${player.name}* fez *${player.points}* pontos,`).join('%0a')
 
