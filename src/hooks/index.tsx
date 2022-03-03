@@ -1,11 +1,16 @@
 import React from 'react';
 
 import { CategoryProvider } from './useCategory';
+import { GameProvider } from './useGame';
 import { PlayersProvider } from './usePlayers';
 
 const AppProvider: React.FC = ({ children }) => (
   <PlayersProvider>
-  <CategoryProvider>{children}</CategoryProvider>
+  <CategoryProvider>
+    <GameProvider>
+      {children}
+    </GameProvider>
+  </CategoryProvider>
   </PlayersProvider>
 );
 

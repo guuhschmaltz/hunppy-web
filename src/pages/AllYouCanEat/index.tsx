@@ -1,11 +1,12 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import { useCategory } from '../../hooks/useCategory';
 import { usePlayers } from '../../hooks/usePlayers';
-import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi';
+import { FiPlusCircle, FiMinusCircle, FiArrowLeftCircle } from 'react-icons/fi';
 import logoImg from '../../assets/logo-com-nome.png';
 
 import { AddPhoneNumber, Container , Content, EndGame, Table } from './styles';
 import { InputButtonContainer } from '../AddPlayers/styles';
+import { Link } from 'react-router-dom';
 
 type Player = {
   name: string;

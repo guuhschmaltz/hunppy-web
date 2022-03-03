@@ -19,6 +19,19 @@ export const Container = styled.div`
 
   display: flex;
   align-items: center;
+
+  > div {
+      margin: 16px 0;
+
+      svg {
+        color: var(--color-background-img);
+        transition: color 0.2s;
+
+        &:hover {
+          color: ${shade(0.2, '#17BCEF')};
+        }
+      }
+    }
 `;
 
 export const EndGame = styled.div`

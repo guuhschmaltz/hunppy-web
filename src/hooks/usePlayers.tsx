@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, useContext } from 'react';
+import { createContext, useState, ReactNode, useContext, useEffect, useCallback } from 'react';
 
 interface Player {
   name: string;
@@ -11,6 +11,7 @@ interface PlayersContextData {
   deletePlayer: (player: Player) => void;
   addPoint: (player: Player) => void;
   deletePoint: (player: Player) => void;
+  deleteAllPlayers(): void;
 }
 
 interface PlayersProviderProps {
@@ -22,7 +23,16 @@ const PlayersContext = createContext<PlayersContextData>(
 );
 
 export function PlayersProvider({ children }: PlayersProviderProps) {
-  const [players, setPlayers] = useState<Player[]>([]);
+    const [players, setPlayers] = useState<Player[]>(() => {
+    const playersExists = localStorage.getItem('@Hunppy:players');
+
+    if (typeof playersExists === 'string') {
+      const parsedPlayers = JSON.parse(playersExists);
+      return parsedPlayers;
+    }
+
+     return []
+  });
 
   function addPlayer(newPlayer: Player) {
     const newPlayers = [...players, newPlayer];
@@ -68,8 +78,17 @@ export function PlayersProvider({ children }: PlayersProviderProps) {
       }
     }
 
+    const deleteAllPlayers = useCallback(() => {
+      localStorage.removeItem('@Hunppy:players');
+      setPlayers([]);
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('@Hunppy:players', JSON.stringify(players))
+    }, [players]);
+
     return (
-      <PlayersContext.Provider value={{ players, addPlayer, deletePlayer, addPoint, deletePoint }}>
+      <PlayersContext.Provider value={{ players, addPlayer, deletePlayer, addPoint, deletePoint, deleteAllPlayers }}>
         {children}
       </PlayersContext.Provider>
     )
